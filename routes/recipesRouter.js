@@ -3,11 +3,10 @@ const router = express.Router();
 const recipesController = require('../controllers/recipesController');
 const { authenticateJWT } = require("../services/authenticateJWT");
 
-router.get(`/api/cooking/`, authenticateJWT, recipesController.getRecipes);
-router.post(`/api/cooking/`, authenticateJWT, recipesController.setRecipe);
-router.put(`/api/cooking/:todoId`, authenticateJWT, recipesController.updateRecipe);
-router.put(`/api/cooking/bulk/sort-todos/`, authenticateJWT, recipesController.sortTodos);
-router.delete(`/api/cooking/:todoId`, authenticateJWT, recipesController.deleteRecipe);
+router.get(`/api/cooking/recipes/filter/`, authenticateJWT, recipesController.getRecipes);
+router.post(`/api/cooking/recipes`, authenticateJWT, recipesController.createRecipe);
+router.put(`/api/cooking/recipes/:recipeId`, authenticateJWT, recipesController.updateRecipe);
+router.delete(`/api/cooking/recipes/:recipeId`, authenticateJWT, recipesController.deleteRecipe);
 
 
 module.exports = router;

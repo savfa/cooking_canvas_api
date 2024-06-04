@@ -10,11 +10,11 @@ exports.getRecipes = function (req, res) {
     })
 };
 
-exports.setRecipe = function (req, res) {
+exports.createRecipe = function (req, res) {
   const { id } = req.user;
   const { label } = req.body;
 
-  recipesModel.setRecipe({user_id: id, label}).then((todo) => res.send({ data: todo }))
+  recipesModel.createRecipe({user_id: id, label}).then((todo) => res.send({ data: todo }))
     .catch((err) => {
       res.status(400);
       res.json({ error: err.message });
@@ -22,20 +22,9 @@ exports.setRecipe = function (req, res) {
 };
 
 exports.updateRecipe = function (req, res) {
-  const { todoId } = req.params;
+  const { recipeId } = req.params;
 
-  recipesModel.updateRecipe(todoId, req.body).then((todo) => res.send({ data: todo }))
-    .catch((err) => {
-      res.status(400);
-      res.json({ error: err.message });
-    })
-};
-
-exports.sortTodos = function (req, res) {
-  const { id: userId } = req.user;
-  const { sortTodos } = req.body;
-
-  recipesModel.sortTodos(sortTodos, userId).then((todo) => res.send({ data: `success` }))
+  recipesModel.updateRecipe(recipeId, req.body).then((todo) => res.send({ data: todo }))
     .catch((err) => {
       res.status(400);
       res.json({ error: err.message });
@@ -43,9 +32,9 @@ exports.sortTodos = function (req, res) {
 };
 
 exports.deleteRecipe = function (req, res) {
-  const { todoId } = req.params;
+  const { recipeId } = req.params;
 
-  recipesModel.deleteRecipe(todoId).then((todo) => res.send({ data: todo }))
+  recipesModel.deleteRecipe(recipeId).then((todo) => res.send({ data: todo }))
     .catch((err) => {
       res.status(400);
       res.json({ error: err.message });

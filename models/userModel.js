@@ -5,7 +5,6 @@ const _ = require('lodash');
 
 const { Recipes } = require('./recipesModel');
 
-
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER,
@@ -48,7 +47,7 @@ User.hasMany(Recipes, {
 });
 Recipes.belongsTo(User,
 {
-  foreignKey: 'id',
+  foreignKey: 'user_id',
 });
 
 exports.checkUser = function (id, email) {
@@ -67,7 +66,7 @@ exports.getLogin = function (email, password) {
     })
 };
 
-exports.setRegistration = function (login, email, password) {
+exports.register = function (login, email, password) {
   return User.create({ login, email, password })   // .get({plain:true})
     .then((response) => {
       const { dataValues: user } = response;

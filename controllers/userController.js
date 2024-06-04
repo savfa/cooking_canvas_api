@@ -30,7 +30,7 @@ exports.login = function (req, res) {
 exports.register = function (req, res) {
   const { login, email, password } = req.body;
 
-  userModel.setRegistration( login, email, getPasswordHash(password))
+  userModel.register( login, email, getPasswordHash(password))
     .then((user) => {
     res.send({
       user,

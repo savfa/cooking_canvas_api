@@ -1,5 +1,7 @@
 const { sequelize } = require('../db_connection');
 const { DataTypes } = require('sequelize');
+const { SubCategories } = require("./subCategoriesModel");
+const { RecipeIngredients } = require("./recipeIngredientsModel");
 
 const Recipes = sequelize.define('Recipes', {
   id: {
@@ -8,15 +10,16 @@ const Recipes = sequelize.define('Recipes', {
     primaryKey: true,
     allowNull: false
   },
+  is_public: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  },
   // связь с юзером
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: true,
-  },
-  // связь с группой блюда
-  food_group: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: null,
   },
   title: {
     type: DataTypes.STRING,
@@ -39,6 +42,10 @@ const Recipes = sequelize.define('Recipes', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  video: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
@@ -53,6 +60,26 @@ const Recipes = sequelize.define('Recipes', {
 
 exports.Recipes = Recipes;
 
+Recipes.hasMany(SubCategories, {
+  foreignKey: 'recipe_id',
+  allowNull: false
+});
+SubCategories.belongsTo(Recipes,
+{
+  foreignKey: 'recipe_id',
+  allowNull: false,
+});
+
+Recipes.hasMany(RecipeIngredients, {
+  foreignKey: 'recipe_id',
+  allowNull: false,
+});
+RecipeIngredients.belongsTo(Recipes,
+{
+  foreignKey: 'recipe_id',
+  allowNull: false,
+});
+
 exports.getRecipes = function (userId) {
   return Recipes.findAll({ where: { user_id: userId }, raw: true })
     .then((recipes) => {
@@ -60,7 +87,7 @@ exports.getRecipes = function (userId) {
     })
 };
 
-exports.setRecipe = function (createObj) {
+exports.createRecipe = function (createObj) {
   return Recipes.create(createObj)
     .then((response) => {
       const { dataValues: todo } = response;

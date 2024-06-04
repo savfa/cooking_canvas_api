@@ -15,6 +15,10 @@ app.use(camelcaseMiddleware({ deep: true })); // возвращаем в camelca
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/userRouter'));
 app.use('/', require('./routes/recipesRouter'));
+app.use('/', require('./routes/сategoriesRouter'));
+app.use('/', require('./routes/subCategoriesRouter'));
+app.use('/', require('./routes/ingredientsRouter'));
+app.use('/', require('./routes/recipeIngredientsRouter'));
 
 // синхронизация с бд, после успшной синхронизации запускаем сервер
 sequelize.sync({ alter: true }).then(()=>{
