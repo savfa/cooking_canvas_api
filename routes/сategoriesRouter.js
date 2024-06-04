@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const сategoriesController = require('../controllers/сategoriesController');
+const categoriesController = require('../controllers/categoriesController');
 const { authenticateJWT } = require("../services/authenticateJWT");
 
-router.get(`/api/cooking/categories/`, authenticateJWT, сategoriesController.getCategories);
-router.post(`/api/cooking/categories/`, authenticateJWT, сategoriesController.createCategory);
-router.put(`/api/cooking/categories/:categoryId`, authenticateJWT, сategoriesController.updateCategory);
-router.delete(`/api/cooking/categories/:categoryId`, authenticateJWT, сategoriesController.deleteCategory);
+router.get(`/api/cooking/categories/`, authenticateJWT, categoriesController.getCategories);
+router.post(`/api/cooking/categories/`, authenticateJWT, categoriesController.createCategory);
+router.put(`/api/cooking/categories/:categoryId`, authenticateJWT, categoriesController.updateCategory);
+router.delete(`/api/cooking/categories/:categoryId`, authenticateJWT, categoriesController.deleteCategory);
 
 
 module.exports = router;

@@ -2,6 +2,7 @@ const { sequelize } = require('../db_connection');
 const { DataTypes } = require('sequelize');
 const { SubCategories } = require("./subCategoriesModel");
 const { RecipeIngredients } = require("./recipeIngredientsModel");
+const { CookingSteps } = require("./cookingStepsModel");
 
 const Recipes = sequelize.define('Recipes', {
   id: {
@@ -75,6 +76,16 @@ Recipes.hasMany(RecipeIngredients, {
   allowNull: false,
 });
 RecipeIngredients.belongsTo(Recipes,
+{
+  foreignKey: 'recipe_id',
+  allowNull: false,
+});
+
+Recipes.hasMany(CookingSteps, {
+  foreignKey: 'recipe_id',
+  allowNull: false,
+});
+CookingSteps.belongsTo(Recipes,
 {
   foreignKey: 'recipe_id',
   allowNull: false,

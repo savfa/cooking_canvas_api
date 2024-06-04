@@ -19,6 +19,7 @@ app.use('/', require('./routes/сategoriesRouter'));
 app.use('/', require('./routes/subCategoriesRouter'));
 app.use('/', require('./routes/ingredientsRouter'));
 app.use('/', require('./routes/recipeIngredientsRouter'));
+app.use('/', require('./routes/cookingStepsRouter'));
 
 // синхронизация с бд, после успшной синхронизации запускаем сервер
 sequelize.sync({ alter: true }).then(()=>{
