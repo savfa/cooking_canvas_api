@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true })); // необходима, ч�
 app.use(camelcaseMiddleware({ deep: true })); // возвращаем в camelcase
 
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/userRouter'));
-app.use('/', require('./routes/recipesRouter'));
-app.use('/', require('./routes/сategoriesRouter'));
-app.use('/', require('./routes/subCategoriesRouter'));
-app.use('/', require('./routes/ingredientsRouter'));
-app.use('/', require('./routes/recipeIngredientsRouter'));
-app.use('/', require('./routes/cookingStepsRouter'));
+app.use('/api/cooking', require('./routes/userRouter'));
+app.use('/api/cooking', require('./routes/recipesRouter'));
+app.use('/api/cooking', require('./routes/сategoriesRouter'));
+app.use('/api/cooking', require('./routes/subCategoriesRouter'));
+app.use('/api/cooking', require('./routes/ingredientsRouter'));
+app.use('/api/cooking', require('./routes/recipeIngredientsRouter'));
+app.use('/api/cooking', require('./routes/cookingStepsRouter'));
 
 // синхронизация с бд, после успшной синхронизации запускаем сервер
 sequelize.sync({ alter: true }).then(()=>{
