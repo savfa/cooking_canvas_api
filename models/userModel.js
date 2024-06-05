@@ -50,7 +50,7 @@ Recipes.belongsTo(User,
   foreignKey: 'user_id',
 });
 
-exports.checkUser = function (id, email) {
+exports.getUser = function (id, email) {
   return User.findOne({ where: { id, email }, raw: true })
     .then((user) => {
       if (!user) return Promise.reject(new Error(`User not found`));
@@ -67,9 +67,10 @@ exports.getLogin = function (email, password) {
 };
 
 exports.register = function (login, email, password) {
-  return User.create({ login, email, password })   // .get({plain:true})
-    .then((response) => {
-      const { dataValues: user } = response;
-      return _.omit(user, [`password`])
+  return User.create({ login, email, password })
+    .then((user) => { // .toJSON({ plain: true }) | .get({plain:true})
+      const { password, ...userWithoutPassword } = user.toJSON({ plain: true });
+
+      return userWithoutPassword
     })
 };

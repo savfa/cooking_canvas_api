@@ -3,10 +3,10 @@ const { getAccessToken } = require("../services/authenticateJWT");
 const { getPasswordHash } = require("../services/password")
 
 
-exports.checkUser = function (req, res) {
+exports.getUser = function (req, res) {
   const { id, email } = req.user;
 
-  userModel.checkUser(id, email).then((user) => res.send({ data: user }))
+  userModel.getUser(id, email).then((user) => res.send({ data: user }))
     .catch((err) => {
     res.status(400);
     res.json({ error: err.message });
