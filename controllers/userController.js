@@ -28,10 +28,8 @@ exports.login = function (req, res) {
 };
 
 exports.register = function (req, res) {
-  const { login, email, password } = req.body;
-  // todo перед регистрацией проверять email на уникальность (привести к нижнему регистру)
-
-  userModel.register( login, email, getPasswordHash(password))
+  const { name, email, password } = req.body;
+  userModel.register( name, email, getPasswordHash(password))
     .then((user) => {
     res.send({
       user,

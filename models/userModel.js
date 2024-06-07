@@ -66,8 +66,9 @@ exports.getLogin = function (email, password) {
     })
 };
 
-exports.register = function (login, email, password) {
-  return User.create({ login, email, password })
+exports.register = function (name, email, password) {
+  // todo перед регистрацией проверять email на уникальность (привести к нижнему регистру)
+  return User.create({ name, email, password })
     .then((user) => { // .toJSON({ plain: true }) | .get({plain:true})
       const { password, ...userWithoutPassword } = user.toJSON({ plain: true });
 
