@@ -40,3 +40,19 @@ exports.register = function (req, res) {
     res.json({ error: err.message });
   })
 };
+
+exports.uploadAvatar = function (req, res) {
+  const { id } = req.user;
+
+  const { file } = req;
+
+  if (!file) {
+    return res.status(400).send('No file uploaded.');
+  }
+
+  userModel.uploadAvatar(id, file).then((user) => res.send({ data: user }))
+    .catch((err) => {
+      res.status(400);
+      res.json({ error: err.message });
+    })
+};

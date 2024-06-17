@@ -2,6 +2,7 @@ const { getPasswordHash } = require("../services/password");
 const { sequelize } = require('../db_connection');
 const { DataTypes } = require('sequelize');
 const _ = require('lodash');
+const path = require('path');
 
 const { Recipes } = require('./recipesModel');
 
@@ -73,5 +74,18 @@ exports.register = function (name, email, password) {
       const { password, ...userWithoutPassword } = user.toJSON({ plain: true });
 
       return userWithoutPassword
+    })
+};
+
+exports.uploadAvatar = function (id, file) {
+  return User.findByPk(id)
+    .then((user) => {
+      if (!user) throw new Error(`User not found`);
+      user.avatar = path.posix.join('media', 'avatars', file.filename);
+      return user.save().then((user) => {
+        const { password, ...userWithoutPassword } = user.toJSON({ plain: true });
+
+        return userWithoutPassword
+      })
     })
 };
