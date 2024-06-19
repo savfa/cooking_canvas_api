@@ -13,9 +13,17 @@ const User = sequelize.define('User', {
     primaryKey: true,
     allowNull: false,
   },
-  name: {
+  firstName: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  patronymic: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   email: {
     type: DataTypes.STRING,
@@ -67,9 +75,9 @@ exports.getLogin = function (email, password) {
     })
 };
 
-exports.register = function (name, email, password) {
+exports.register = function (firstName, email, password) {
   // todo перед регистрацией проверять email на уникальность (привести к нижнему регистру)
-  return User.create({ name, email, password })
+  return User.create({ firstName, email, password })
     .then((user) => { // .toJSON({ plain: true }) | .get({plain:true})
       const { password, ...userWithoutPassword } = user.toJSON({ plain: true });
 

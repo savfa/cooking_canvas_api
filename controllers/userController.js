@@ -28,8 +28,8 @@ exports.login = function (req, res) {
 };
 
 exports.register = function (req, res) {
-  const { name, email, password } = req.body;
-  userModel.register( name, email, getPasswordHash(password))
+  const { firstName, email, password } = req.body;
+  userModel.register( firstName, email, getPasswordHash(password))
     .then((user) => {
     res.send({
       user,
